@@ -14,7 +14,7 @@ runs:
       run: |
         sudo rm -f /etc/apt/sources.list.d/google-chrome.list
         sudo apt-get update
-        sudo apt-get install -y libfuse-dev gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+        sudo apt-get install -y libfuse-dev gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf
     - name: Setup go
       uses: actions/setup-go@v3
       with:
@@ -22,9 +22,9 @@ runs:
     - name: Make fuseftp-linux-amd64
       shell: bash
       run: CGO_ENABLED=1 make fuseftp
-    - name: Make fuseftp-linux-arm64
+    - name: Make fuseftp-linux-arm
       shell: bash
-      run: CGO_ENABLED=1 GOARCH=arm64 CC=aarch64-linux-gnu-gcc make fuseftp
+      run: CGO_ENABLED=1 GOARCH=arm CC=arm-linux-gnueabihf-gcc make fuseftp
     - name: Upload binaries
       if: ${{ inputs.upload }}
       uses: actions/upload-artifact@v3
