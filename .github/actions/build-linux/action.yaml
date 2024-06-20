@@ -24,7 +24,7 @@ runs:
       run: CGO_ENABLED=1 make fuseftp
     - name: Make fuseftp-linux-arm
       shell: bash
-      run: CGO_ENABLED=1 GOARCH=arm CC=arm-linux-gnueabihf-gcc make fuseftp
+      run: CGO_ENABLED=1 GOARCH=arm GOARM=7 GOOS=linux CC=arm-linux-gnueabihf-gcc make fuseftp
     - name: Upload binaries
       if: ${{ inputs.upload }}
       uses: actions/upload-artifact@v3
