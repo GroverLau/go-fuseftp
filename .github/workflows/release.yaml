@@ -13,35 +13,3 @@ jobs:
         with:
           go-version: '1.20'
           upload: true
-  upload-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run build
-        uses: ./.github/actions/build-macos
-        with:
-          go-version: '1.20'
-          upload: true
-  upload-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run build
-        uses: ./.github/actions/build-windows
-        with:
-          go-version: '1.20'
-          upload: true
-  release:
-    runs-on: ubuntu-latest
-    needs:
-      - upload-linux
-      - upload-macos
-      - upload-windows
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-      - name: Create release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "linux-binaries/*,macos-binaries/*,windows-binaries/*"
-          token: ${{ secrets.GITHUB_TOKEN }}
